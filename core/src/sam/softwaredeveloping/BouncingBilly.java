@@ -1,6 +1,8 @@
 package sam.softwaredeveloping;
 
 import sam.bouncingbilly.handlers.GameStateManager;
+import sam.bouncingbilly.handlers.MyInput;
+import sam.bouncingbilly.handlers.MyInputProcessor;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -22,6 +24,9 @@ public class BouncingBilly implements ApplicationListener {
 	
 	@Override
 	public void create() {
+		
+		Gdx.input.setInputProcessor(new MyInputProcessor());
+		
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
 		cam.setToOrtho(false, 1280, 720);
@@ -44,6 +49,7 @@ public class BouncingBilly implements ApplicationListener {
 			accum -= STEP;
 			gsm.update(STEP);
 			gsm.render();
+			MyInput.update();
 		}
 	}
 
