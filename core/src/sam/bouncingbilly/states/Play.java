@@ -1,17 +1,20 @@
 package sam.bouncingbilly.states;
 
 import static sam.bouncingbilly.handlers.B2DVars.PPM;
+import sam.bouncingbilly.handlers.B2DVars;
 import sam.bouncingbilly.handlers.GameStateManager;
+import sam.bouncingbilly.handlers.MyContactListener;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -26,6 +29,7 @@ public class Play extends GameState{
 		super(gsm);
 		
 		world = new World(new Vector2(0, -9.81f), true);
+		world.setContactListener(new MyContactListener());
 		b2dr = new Box2DDebugRenderer();
 		
 		// create platform
@@ -41,18 +45,36 @@ public class Play extends GameState{
 		shape.setAsBox(50 / PPM, 5 / PPM);		
 		FixtureDef fdef = new FixtureDef();
 		fdef.shape = shape;
-		body.createFixture(fdef);
+		// Settings with who can i have a collision
+		fdef.filter.categoryBits = B2DVars.BIT_GROUND;
+		fdef.filter.maskBits = B2DVars.BIT_BOX | B2DVars.BIT_BALL;
+		body.createFixture(fdef).setUserData("ground");
+		
 		
 		// create falling box
 		bdef.position.set(160 / PPM, 200 / PPM);
 		bdef.type = BodyType.DynamicBody;
 		body = world.createBody(bdef);
 		
-		
 		shape.setAsBox(5 / PPM, 5 / PPM);
 		fdef.shape = shape;
-		fdef.restitution = 0.8f;
-		body.createFixture(fdef);
+		fdef.filter.categoryBits = B2DVars.BIT_BOX;
+		fdef.filter.maskBits = B2DVars.BIT_GROUND;
+//		fdef.restitution = 0.8f;
+		body.createFixture(fdef).setUserData("box");;
+		
+		
+		// create ball
+		bdef.position.set(153 / PPM, 220 / PPM);
+		body = world.createBody(bdef);
+		
+		CircleShape cshape = new CircleShape();
+		cshape.setRadius(5 / PPM);
+		fdef.shape = cshape;
+//		fdef.restitution = 0.6f;    <--- wie er wieder nach obe springt
+		fdef.filter.categoryBits = B2DVars.BIT_BALL;
+		fdef.filter.maskBits = B2DVars.BIT_GROUND;
+		body.createFixture(fdef).setUserData("ball");;
 		
 		// set up box2d cam
 		b2dCam = new OrthographicCamera();
