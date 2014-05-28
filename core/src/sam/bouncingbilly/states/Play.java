@@ -126,13 +126,13 @@ public class Play extends GameState {
 		 */
 
 		// create ball
-		bdef.position.set(160 / PPM, 220 / PPM);
+		bdef.position.set(160 / PPM, 100 / PPM);
 		bdef.type = BodyType.DynamicBody;
 		bdef.linearVelocity.set(1, 0);
 		Body body = world.createBody(bdef);
 
 		CircleShape cshape = new CircleShape();
-		cshape.setRadius(25 / PPM);
+		cshape.setRadius(15 / PPM);
 		fdef.shape = cshape;
 		// fdef.restitution = 0.6f; // <--- wie er wieder nach obe springt
 		fdef.filter.categoryBits = B2DVars.BIT_BALL;
