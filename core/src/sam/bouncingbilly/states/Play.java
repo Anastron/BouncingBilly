@@ -1,6 +1,7 @@
 package sam.bouncingbilly.states;
 
 import static sam.bouncingbilly.handlers.B2DVars.PPM;
+import sam.bouncingbilly.entities.Player;
 import sam.bouncingbilly.handlers.B2DVars;
 import sam.bouncingbilly.handlers.GameStateManager;
 import sam.bouncingbilly.handlers.MyContactListener;
@@ -32,12 +33,13 @@ public class Play extends GameState {
 
 	private OrthographicCamera b2dCam;
 
-	private Body playerBody;
 	private MyContactListener cl;
 
 	private TiledMap tileMap;
 	private int tileSize;
 	private OrthogonalTiledMapRenderer tmr;
+	
+	private Player player;
 
 	public Play(GameStateManager gsm) {
 		super(gsm);
@@ -67,7 +69,7 @@ public class Play extends GameState {
 		// play jump
 		if (MyInput.isPressed(MyInput.BUTTON1)) {
 			if (cl.isPlayerOnGround()) {
-				playerBody.applyForceToCenter(0, 300, true);
+				player.getBody().applyForceToCenter(0, 300, true);
 			}
 		}
 
@@ -78,6 +80,8 @@ public class Play extends GameState {
 		handleInput();
 
 		world.step(dt, 6, 2);
+		
+		player.update(dt);
 
 	}
 
@@ -89,6 +93,10 @@ public class Play extends GameState {
 		// draw tile map
 		tmr.setView(cam);
 		tmr.render();
+		
+		// draw player
+		sb.setProjectionMatrix(cam.combined);
+		player.render(sb);
 
 		// draw box2d world
 		b2dr.render(world, b2dCam.combined);
@@ -120,7 +128,8 @@ public class Play extends GameState {
 		// create ball
 		bdef.position.set(160 / PPM, 220 / PPM);
 		bdef.type = BodyType.DynamicBody;
-		playerBody = world.createBody(bdef);
+		bdef.linearVelocity.set(1, 0);
+		Body body = world.createBody(bdef);
 
 		CircleShape cshape = new CircleShape();
 		cshape.setRadius(25 / PPM);
@@ -128,7 +137,7 @@ public class Play extends GameState {
 		// fdef.restitution = 0.6f; // <--- wie er wieder nach obe springt
 		fdef.filter.categoryBits = B2DVars.BIT_BALL;
 		fdef.filter.maskBits = B2DVars.BIT_RED;
-		playerBody.createFixture(fdef).setUserData("player");
+		body.createFixture(fdef).setUserData("player");
 
 		// create foot sensor
 		shape.setRadius(5 / PPM);
@@ -136,7 +145,13 @@ public class Play extends GameState {
 		fdef.filter.categoryBits = B2DVars.BIT_BALL;
 		fdef.filter.maskBits = B2DVars.BIT_RED;
 		fdef.isSensor = true;
-		playerBody.createFixture(fdef).setUserData("foot");
+		body.createFixture(fdef).setUserData("foot");
+		
+		// create player
+		player = new Player(body);
+		
+		body.setUserData(player);
+
 	}
 
 	private void createTiles() {
@@ -191,7 +206,7 @@ public class Play extends GameState {
 				// cs.createChain(v);
 				fdef.friction = 0;
 				fdef.shape = shape;
-				fdef.filter.categoryBits = B2DVars.BIT_RED;
+				fdef.filter.categoryBits = bits;
 				fdef.filter.maskBits = B2DVars.BIT_BALL;
 				fdef.isSensor = false;
 				world.createBody(bdef).createFixture(fdef);
