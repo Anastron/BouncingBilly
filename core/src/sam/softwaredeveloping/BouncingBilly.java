@@ -1,20 +1,23 @@
 package sam.softwaredeveloping;
 
-import sam.bouncingbilly.handlers.Content;
-import sam.bouncingbilly.handlers.GameStateManager;
-import sam.bouncingbilly.handlers.MyInput;
-import sam.bouncingbilly.handlers.MyInputProcessor;
-
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import sam.bouncingbilly.handlers.Content;
+import sam.bouncingbilly.handlers.GameStateManager;
+import sam.bouncingbilly.handlers.MyInput;
+import sam.bouncingbilly.handlers.MyInputProcessor;
 
 public class BouncingBilly implements ApplicationListener {
 	
-	public static final String TITLE = "Bouncing Billy", VERSION = "0.0.0";
-
+	public static final String TITLE = "Block Bunny";
+	public static final String VERSION = "0.0.0.0";
+	public static final int V_WIDTH = 320;
+	public static final int V_HEIGHT = 240;
+	public static final int SCALE = 2;
+	
 	public static final float STEP = 1 / 60f;
 	private float accum;
 	
@@ -26,7 +29,6 @@ public class BouncingBilly implements ApplicationListener {
 	
 	public static Content res;
 	
-	@Override
 	public void create() {
 		
 		
@@ -34,55 +36,40 @@ public class BouncingBilly implements ApplicationListener {
 		
 		res = new Content();
 		res.loadTexture("res/images/bunny.png", "bunny");
+		res.loadTexture("res/images/crystal.png", "crystal");
 		
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
-		cam.setToOrtho(false, 1280, 720);
+		cam.setToOrtho(false, V_WIDTH, V_HEIGHT);
 		hudCam = new OrthographicCamera();
-		hudCam.setToOrtho(false, 1280, 720);
+		hudCam.setToOrtho(false, V_WIDTH, V_HEIGHT);
 		
 		gsm = new GameStateManager(this);
-	}
-
-	@Override
-	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
+	
 	public void render() {
+		
 		accum += Gdx.graphics.getDeltaTime();
-		while(accum >= STEP){
+		while(accum >= STEP) {
 			accum -= STEP;
 			gsm.update(STEP);
 			gsm.render();
 			MyInput.update();
 		}
-
-		
-	}
-
-	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
 		
 	}
 	
-	public SpriteBatch getSpriteBatch() {return sb;}
-	public OrthographicCamera getCamera() {return cam;}
-	public OrthographicCamera getHUDCamera() {return hudCam;}
-
+	public void dispose() {
+		
+	}
+	
+	public SpriteBatch getSpriteBatch() { return sb; }
+	public OrthographicCamera getCamera() { return cam; }
+	public OrthographicCamera getHUDCamera() { return hudCam; }
+	
+	public void resize(int w, int h) {}
+	public void pause() {}
+	public void resume() {}
+	
 }

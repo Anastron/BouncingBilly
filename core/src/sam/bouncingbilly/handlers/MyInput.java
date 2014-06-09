@@ -1,7 +1,7 @@
 package sam.bouncingbilly.handlers;
 
 public class MyInput {
-
+	
 	public static boolean[] keys;
 	public static boolean[] pkeys;
 	
@@ -14,22 +14,30 @@ public class MyInput {
 		pkeys = new boolean[NUM_KEYS];
 	}
 	
-	public static void update(){
-		for(int i = 0; i < NUM_KEYS; i++){
+	public static void update() {
+		for(int i = 0; i < NUM_KEYS; i++) {
 			pkeys[i] = keys[i];
 		}
 	}
 	
-	public static void setKey(int i, boolean b){
-		keys[i] = b;
-	}
-	
-	public static boolean isDown(int i){
-		return keys[i];
-	}
-	
-	public static boolean isPressed(int i){
-		return keys[i] && !pkeys[i];
-	}
+	public static void setKey(int i, boolean b) { keys[i] = b; }
+	public static boolean isDown(int i) { return keys[i]; }
+	public static boolean isPressed(int i) { return keys[i] && !pkeys[i]; }
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
