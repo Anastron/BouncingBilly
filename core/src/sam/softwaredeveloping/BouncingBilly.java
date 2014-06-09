@@ -35,7 +35,7 @@ public class BouncingBilly implements ApplicationListener {
 		Gdx.input.setInputProcessor(new MyInputProcessor());
 		
 		res = new Content();
-		res.loadTexture("res/images/bunny.png", "bunny");
+		res.loadTexture("res/images/billy.png", "billy");
 		res.loadTexture("res/images/crystal.png", "crystal");
 		
 		sb = new SpriteBatch();
