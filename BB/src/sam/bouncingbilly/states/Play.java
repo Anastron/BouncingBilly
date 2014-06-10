@@ -27,7 +27,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 
-
 import sam.bouncingbilly.handlers.BoundedCamera;
 
 import sam.bouncingbilly.entities.Crystal;
@@ -106,6 +105,19 @@ public class Play extends GameState {
 		// player jump
 		if(MyInput.isPressed(MyInput.BUTTON1)) {
 			if(cl.isPlayerOnGround()) {
+				player.getBody().applyForceToCenter(0, 250, true);
+				BouncingBilly.res.getSound("jump").play();
+			}
+		}
+		
+		// mouse/touch input for android
+		// left side of screen to switch blocks
+		// right side of screen to jump
+		if(MyInput.isPressed()) {
+			if(MyInput.x < Gdx.graphics.getWidth() / 2) {
+				switchBlock();
+			}
+			else {
 				player.getBody().applyForceToCenter(0, 250, true);
 				BouncingBilly.res.getSound("jump").play();
 			}
