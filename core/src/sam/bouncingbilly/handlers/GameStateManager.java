@@ -4,6 +4,7 @@ import java.util.Stack;
 
 import sam.softwaredeveloping.BouncingBilly;
 import sam.bouncingbilly.states.GameState;
+import sam.bouncingbilly.states.Menu;
 import sam.bouncingbilly.states.Play;
 
 public class GameStateManager {
@@ -12,12 +13,13 @@ public class GameStateManager {
 	
 	private Stack<GameState> gameStates;
 	
+	public static final int MENU = 83774392;
 	public static final int PLAY = 912837;
 	
 	public GameStateManager(BouncingBilly game) {
 		this.game = game;
 		gameStates = new Stack<GameState>();
-		pushState(PLAY);
+		pushState(MENU);
 	}
 	
 	public BouncingBilly game() { return game; }
@@ -31,6 +33,7 @@ public class GameStateManager {
 	}
 	
 	private GameState getState(int state) {
+		if(state == MENU) return new Menu(this);
 		if(state == PLAY) return new Play(this);
 		return null;
 	}

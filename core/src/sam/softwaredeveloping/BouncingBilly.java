@@ -37,6 +37,11 @@ public class BouncingBilly implements ApplicationListener {
 		res = new Content();
 		res.loadTexture("res/images/billy.png", "billy");
 		res.loadTexture("res/images/crystal.png", "crystal");
+		res.loadTexture("res/images/hud.png", "hud");
+		res.loadTexture("res/images/menu.png", "menu");
+		
+		// Sounds
+		res.loadSound("res/sfx/crystal.wav");
 		
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
