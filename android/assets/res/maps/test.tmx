@@ -5,17 +5,17 @@
  </tileset>
  <layer name="red" width="200" height="8">
   <data encoding="base64" compression="zlib">
-   eJzt1rsNACAIBUDYf2kbGwtj4Sdq7hIWeEAgAgD4VdbiDRl61rMqE/kyKwcFO5m7s+QLLTtxNzfiPaO/Uj/XKGUXAC4=
+   eJzt1lEKgEAIBUC9/6X3p58lFqG2yJgBL/BUNAIA+Ks8ih4y9GxlVyby5a4sCp5k7t4lX5jZiW9zI/qp/kr9PLuSyQBl8wAz
   </data>
  </layer>
  <layer name="green" width="200" height="8">
   <data encoding="base64" compression="zlib">
-   eJztl1EKwCAMQ9X7H9ovoYxGKtNaSx70Yyg4aWK0FEJy0G7/QEIaKPIeo28VlAXrvCwg/e/2AD11H60HK94Y873g2Uw8Qf7QvlG2ePuDEC++etO0XpWxU/6Y3V2YFcQbqTek80j5cQL67z9ZzzPL+1zLD0k0f1gyKEMPX91LtP7sWnuWH7I6uW4A3w==
+   eJzt1mEKgCAMBlDp/ofuAluoRbT2HvhTmMzPOQZA7EgWdJDd/6czIFOs8jZDThbo7OrvYlbA++TvPu9ZHTMz6A89rHqWr/Vnp57ZuqI9J4HcALs=
   </data>
  </layer>
  <layer name="blue" width="200" height="8">
   <data encoding="base64" compression="zlib">
-   eJzt18sKwCAQQ1HF///nrrocEJwHCfdAobua0ZR2LUROcAFTlM7f1Fonerqbn/dTOg8dnOehnK2rH7czUp7lC+fc1dkqvwcr++G859mcZ6WcLasfJ7hH/H5z/P9Vzpa9dpXcQCd6AXj7ADTwAKE=
+   eJzt1sEKACEIBFDD///nTkGXLMi0kXkQ7G0dW2tFiAiFZhcwUWOJ5NU61xClBb9v+Ol7+EHlfiBni5qP0x4h9/JG5dyvs1l33a2X81F5z71V7hVyNq/50MUz2f/z3uddNuRs3rWj5CaKxLkgwra7Hzs7sACt
   </data>
  </layer>
  <objectgroup name="crystals" width="200" height="8">

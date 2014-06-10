@@ -13,6 +13,8 @@ public class MyContactListener implements ContactListener {
 	private int numFootContacts;
 	private Array<Body> bodiesToRemove;
 	
+	private boolean playerDead;
+	
 	public MyContactListener() {
 		super();
 		bodiesToRemove = new Array<Body>();
@@ -61,6 +63,7 @@ public class MyContactListener implements ContactListener {
 	
 	public boolean isPlayerOnGround() { return numFootContacts > 0; }
 	public Array<Body> getBodiesToRemove() { return bodiesToRemove; }
+	public boolean isPlayerDead() { return playerDead; }
 	
 	
 	

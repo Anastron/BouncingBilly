@@ -4,7 +4,6 @@ import static sam.bouncingbilly.handlers.B2DVars.PPM;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
@@ -28,6 +27,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 
+
+import sam.bouncingbilly.handlers.BoundedCamera;
+
 import sam.bouncingbilly.entities.Crystal;
 import sam.bouncingbilly.entities.HUD;
 import sam.bouncingbilly.entities.Player;
@@ -45,11 +47,13 @@ public class Play extends GameState {
 	private World world;
 	private Box2DDebugRenderer b2dr;
 	
-	private OrthographicCamera b2dCam;
+	private BoundedCamera b2dCam;
 	private MyContactListener cl;
 	
 	private TiledMap tileMap;
 	private float tileSize;
+	private int tileMapWidth;
+	private int tileMapHeight;
 	private OrthogonalTiledMapRenderer tmr;
 	
 	private Player player;
@@ -89,8 +93,9 @@ public class Play extends GameState {
 		backgrounds[2] = new Background(mountains, cam, 0.2f);
 		
 		// set up box2d cam
-		b2dCam = new OrthographicCamera();
+		b2dCam = new BoundedCamera();
 		b2dCam.setToOrtho(false, BouncingBilly.V_WIDTH / PPM, BouncingBilly.V_HEIGHT / PPM);
+		b2dCam.setBounds(0, (tileMapWidth * tileSize) / PPM, 0, (tileMapHeight * tileSize) / PPM);
 		
 		// set up hud
 		hud = new HUD(player);
@@ -102,12 +107,14 @@ public class Play extends GameState {
 		if(MyInput.isPressed(MyInput.BUTTON1)) {
 			if(cl.isPlayerOnGround()) {
 				player.getBody().applyForceToCenter(0, 250, true);
+				BouncingBilly.res.getSound("jump").play();
 			}
 		}
 		
 		// switch block color
 		if(MyInput.isPressed(MyInput.BUTTON2)){
 			switchBlock();
+			BouncingBilly.res.getSound("changeblock").play();
 		}
 		
 	}
@@ -127,10 +134,31 @@ public class Play extends GameState {
 			crystals.removeValue((Crystal) b.getUserData(), true);
 			world.destroyBody(b);
 			player.collectCrystal();
+			BouncingBilly.res.getSound("crystal").play();
 		}
 		bodies.clear();
 		
 		player.update(dt);
+		
+		// player win
+		if(player.getBody().getPosition().x * PPM > tileMapWidth * tileSize) {
+			
+			gsm.setState(GameStateManager.MENU);
+		}
+		
+		// check player failed
+		if(player.getBody().getPosition().y < 0) {
+			BouncingBilly.res.getSound("hit").play();
+			gsm.setState(GameStateManager.MENU);
+		}
+		if(player.getBody().getLinearVelocity().x < 0.001f) {
+			BouncingBilly.res.getSound("hit").play();
+			gsm.setState(GameStateManager.MENU);
+		}
+		if(cl.isPlayerDead()) {
+			BouncingBilly.res.getSound("hit").play();
+			gsm.setState(GameStateManager.MENU);
+		}
 		
 		for(int i = 0; i < crystals.size; i++) {
 			crystals.get(i).update(dt);
@@ -222,6 +250,10 @@ public class Play extends GameState {
 		tileMap = new TmxMapLoader().load("res/maps/test.tmx");
 		tmr = new OrthogonalTiledMapRenderer(tileMap);
 		tileSize = (Integer) tileMap.getProperties().get("tilewidth");
+		
+		tileMapWidth = (Integer) tileMap.getProperties().get("width");
+		tileMapHeight = (Integer) tileMap.getProperties().get("height");
+
 		
 		TiledMapTileLayer layer;
 		

@@ -43,6 +43,9 @@ public class BouncingBilly implements ApplicationListener {
 		
 		// Sounds
 		res.loadSound("res/sfx/crystal.wav");
+		res.loadSound("res/sfx/hit.wav");
+		res.loadSound("res/sfx/jump.wav");
+		res.loadSound("res/sfx/changeblock.wav");
 		
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
