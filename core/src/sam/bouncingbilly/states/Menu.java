@@ -71,7 +71,7 @@ public class Menu extends GameState {
 		// mouse/touch input
 		if(playButton.isClicked()) {
 			BouncingBilly.res.getSound("crystal").play();
-//			gsm.setState(GameStateManager.LEVEL_SELECT);
+			gsm.setState(GameStateManager.PLAY);
 		}
 		
 	}

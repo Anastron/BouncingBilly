@@ -5,6 +5,8 @@ import static sam.bouncingbilly.handlers.B2DVars.PPM;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -25,6 +27,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
+
 import sam.bouncingbilly.entities.Crystal;
 import sam.bouncingbilly.entities.HUD;
 import sam.bouncingbilly.entities.Player;
@@ -32,6 +35,7 @@ import sam.bouncingbilly.handlers.B2DVars;
 import sam.bouncingbilly.handlers.GameStateManager;
 import sam.bouncingbilly.handlers.MyContactListener;
 import sam.bouncingbilly.handlers.MyInput;
+import sam.bouncingbilly.handlers.Background;
 import sam.softwaredeveloping.BouncingBilly;
 
 public class Play extends GameState {
@@ -50,6 +54,8 @@ public class Play extends GameState {
 	
 	private Player player;
 	private Array<Crystal> crystals;
+
+	private Background[] backgrounds;
 	
 	private HUD hud;
 	
@@ -71,6 +77,16 @@ public class Play extends GameState {
 		
 		// create crystals
 		createCrystals();
+		
+		// create backgrounds
+		Texture bgs = BouncingBilly.res.getTexture("bgs");
+		TextureRegion sky = new TextureRegion(bgs, 0, 0, 320, 240);
+		TextureRegion clouds = new TextureRegion(bgs, 0, 240, 320, 240);
+		TextureRegion mountains = new TextureRegion(bgs, 0, 480, 320, 240);
+		backgrounds = new Background[3];
+		backgrounds[0] = new Background(sky, cam, 0f);
+		backgrounds[1] = new Background(clouds, cam, 0.1f);
+		backgrounds[2] = new Background(mountains, cam, 0.2f);
 		
 		// set up box2d cam
 		b2dCam = new OrthographicCamera();
@@ -134,6 +150,12 @@ public class Play extends GameState {
 				0
 		);
 		cam.update();
+		
+		// draw background
+		sb.setProjectionMatrix(hudCam.combined);
+		for(int i = 0; i < backgrounds.length; i++) {
+			backgrounds[i].render(sb);
+		}
 		
 		// draw tile map
 		tmr.setView(cam);

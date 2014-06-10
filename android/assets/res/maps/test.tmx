@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="40" height="8" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="200" height="8" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="blocks" tilewidth="32" tileheight="32">
   <image source="blocks.png" width="96" height="32"/>
  </tileset>
- <layer name="red" width="40" height="8">
+ <layer name="red" width="200" height="8">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFowATMCLhUYAbMOLAowABBnMYAQAbXAAQ
+   eJzt1rsNACAIBUDYf2kbGwtj4Sdq7hIWeEAgAgD4VdbiDRl61rMqE/kyKwcFO5m7s+QLLTtxNzfiPaO/Uj/XKGUXAC4=
   </data>
  </layer>
- <layer name="green" width="40" height="8">
+ <layer name="green" width="200" height="8">
   <data encoding="base64" compression="zlib">
-   eJxjYBicgGmgHUAAjLoPYgc2TKxeWgNK7KCG+3CFD6lhhcvswQwGo/uwhT0AakgANw==
+   eJztl1EKwCAMQ9X7H9ovoYxGKtNaSx70Yyg4aWK0FEJy0G7/QEIaKPIeo28VlAXrvCwg/e/2AD11H60HK94Y873g2Uw8Qf7QvlG2ePuDEC++etO0XpWxU/6Y3V2YFcQbqTek80j5cQL67z9ZzzPL+1zLD0k0f1gyKEMPX91LtP7sWnuWH7I6uW4A3w==
   </data>
  </layer>
- <layer name="blue" width="40" height="8">
+ <layer name="blue" width="200" height="8">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUMA+0AwiAUffhtpdYjA0AABbEACs=
+   eJzt18sKwCAQQ1HF///nrrocEJwHCfdAobua0ZR2LUROcAFTlM7f1Fonerqbn/dTOg8dnOehnK2rH7czUp7lC+fc1dkqvwcr++G859mcZ6WcLasfJ7hH/H5z/P9Vzpa9dpXcQCd6AXj7ADTwAKE=
   </data>
  </layer>
- <objectgroup name="crystals" width="40" height="8">
+ <objectgroup name="crystals" width="200" height="8">
   <object x="21" y="115">
    <ellipse/>
   </object>

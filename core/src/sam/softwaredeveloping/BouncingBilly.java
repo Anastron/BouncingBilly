@@ -39,6 +39,7 @@ public class BouncingBilly implements ApplicationListener {
 		res.loadTexture("res/images/crystal.png", "crystal");
 		res.loadTexture("res/images/hud.png", "hud");
 		res.loadTexture("res/images/menu.png", "menu");
+		res.loadTexture("res/images/bgs.png", "bgs");
 		
 		// Sounds
 		res.loadSound("res/sfx/crystal.wav");
