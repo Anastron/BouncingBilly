@@ -59,13 +59,12 @@ public class BouncingBilly implements ApplicationListener {
 	
 	public void render() {
 		
-		accum += Gdx.graphics.getDeltaTime();
-		while(accum >= STEP) {
-			accum -= STEP;
-			gsm.update(STEP);
-			gsm.render();
-			MyInput.update();
-		}
+		Gdx.graphics.setTitle(TITLE + " -- FPS: " + Gdx.graphics.getFramesPerSecond());
+		
+		gsm.update(Gdx.graphics.getDeltaTime());
+		gsm.render();
+		MyInput.update();
+		
 		
 	}
 	

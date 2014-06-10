@@ -1,5 +1,5 @@
 /** Automatically generated file. DO NOT MODIFY */
-package com.neet.blockbunny;
+package sam.bouncingbilly;
 
 public final class BuildConfig {
     public final static boolean DEBUG = true;
