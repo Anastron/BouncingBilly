@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class BouncingBilly implements ApplicationListener {
 	
 	public static final String TITLE = "Bouncing Irgendwas";
-	public static final String VERSION = "0.1.2";
+	public static final String VERSION = "0.1.3";
 	public static final int V_WIDTH = 320;
 	public static final int V_HEIGHT = 240;
 	public static final int SCALE = 2;
