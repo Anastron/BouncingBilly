@@ -20,7 +20,7 @@ www-test/
 
 ## Eclipse
 .classpath
-.project
+
 .metadata
 **/bin/
 tmp/
