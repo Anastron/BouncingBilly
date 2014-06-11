@@ -113,14 +113,12 @@ public class Play extends GameState {
 		// mouse/touch input for android
 		// left side of screen to switch blocks
 		// right side of screen to jump
-		if(MyInput.isPressed()) {
-			if(MyInput.x < Gdx.graphics.getWidth() / 2) {
-				switchBlock();
-			}
-			else {
+		if(MyInput.isPressed() && cl.isPlayerOnGround()) {
 				player.getBody().applyForceToCenter(0, 250, true);
 				BouncingBilly.res.getSound("jump").play();
-			}
+		}
+		if(MyInput.isPressed() && (MyInput.x < Gdx.graphics.getWidth() / 2)){
+			switchBlock();
 		}
 		
 		// switch block color
