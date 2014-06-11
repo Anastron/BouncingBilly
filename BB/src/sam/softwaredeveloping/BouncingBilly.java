@@ -45,7 +45,7 @@ public class BouncingBilly implements ApplicationListener {
 		res.loadSound("res/sfx/hit.wav");
 		res.loadSound("res/sfx/jump.wav");
 		res.loadSound("res/sfx/changeblock.wav");
-		res.loadSound("res/sfx/schuss.wav");
+		res.loadSound("res/sfx/levelselect.wav");
 		
 		// can you here it?
 		// dont work sry...
