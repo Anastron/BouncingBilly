@@ -3,7 +3,6 @@ package sam.bouncingbilly.states;
 
 
 import static sam.bouncingbilly.handlers.B2DVars.PPM;
-import sam.bouncingbilly.entities.B2DSprite;
 import sam.bouncingbilly.handlers.Animation;
 import sam.bouncingbilly.handlers.Background;
 import sam.bouncingbilly.handlers.GameButton;
@@ -16,7 +15,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
 
 
 public class Menu extends GameState {
@@ -29,8 +27,6 @@ public class Menu extends GameState {
 	
 	private World world;
 	private Box2DDebugRenderer b2dRenderer;
-	
-	private Array<B2DSprite> blocks;
 	
 	private TextureRegion crystal;
 	private TextureRegion[] font;

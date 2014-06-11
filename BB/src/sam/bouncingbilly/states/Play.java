@@ -122,6 +122,7 @@ public class Play extends GameState {
 		
 		if(MyInput.isPressed() && (MyInput.x < Gdx.graphics.getWidth() / 2)){
 			switchBlock();
+			BouncingBilly.res.getSound("changeblock").play();
 		}
 		
 		// switch block color

@@ -1,14 +1,14 @@
 package sam.softwaredeveloping;
 
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import sam.bouncingbilly.handlers.Content;
 import sam.bouncingbilly.handlers.GameStateManager;
 import sam.bouncingbilly.handlers.MyInput;
 import sam.bouncingbilly.handlers.MyInputProcessor;
+
+import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class BouncingBilly implements ApplicationListener {
 	
@@ -19,7 +19,6 @@ public class BouncingBilly implements ApplicationListener {
 	public static final int SCALE = 2;
 	
 	public static final float STEP = 1 / 60f;
-	private float accum;
 	
 	private SpriteBatch sb;
 	private OrthographicCamera cam;
@@ -47,6 +46,13 @@ public class BouncingBilly implements ApplicationListener {
 		res.loadSound("res/sfx/jump.wav");
 		res.loadSound("res/sfx/changeblock.wav");
 		
+		// can you here it?
+		// dont work sry...
+/*		res.loadMusic("res/music/bbsong.ogg");
+		res.getMusic("bbsong").setLooping(true);
+		res.getMusic("bbsong").setVolume(0.5f);
+		res.getMusic("bbsong").play();
+*/		
 		sb = new SpriteBatch();
 		cam = new OrthographicCamera();
 		cam.setToOrtho(false, V_WIDTH, V_HEIGHT);
