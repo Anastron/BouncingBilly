@@ -3,26 +3,20 @@ package sam.bouncingbilly.states;
 
 
 import static sam.bouncingbilly.handlers.B2DVars.PPM;
-
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
-
-import sam.softwaredeveloping.BouncingBilly;
 import sam.bouncingbilly.entities.B2DSprite;
 import sam.bouncingbilly.handlers.Animation;
 import sam.bouncingbilly.handlers.Background;
 import sam.bouncingbilly.handlers.GameButton;
 import sam.bouncingbilly.handlers.GameStateManager;
+import sam.softwaredeveloping.BouncingBilly;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 
 
 public class Menu extends GameState {
@@ -38,6 +32,10 @@ public class Menu extends GameState {
 	
 	private Array<B2DSprite> blocks;
 	
+	private TextureRegion crystal;
+	private TextureRegion[] font;
+	
+	
 	public Menu(GameStateManager gsm) {
 		
 		super(gsm);
@@ -51,10 +49,25 @@ public class Menu extends GameState {
 		for(int i = 0; i < reg.length; i++) {
 			reg[i] = new TextureRegion(tex, i * 32, 0, 32, 32);
 		}
+		
 		animation = new Animation(reg, 1 / 12f);
 		
 		tex = BouncingBilly.res.getTexture("hud");
+		
+		// player from hud
 		playButton = new GameButton(new TextureRegion(tex, 0, 34, 58, 27), 160, 100, cam);
+		
+		// crystal from hud
+		crystal = new TextureRegion(tex, 80, 0, 16, 16);
+		
+		// font from hud
+		font = new TextureRegion[11];
+		for(int i = 0; i < 6; i++) {
+			font[i] = new TextureRegion(tex, 32 + i * 9, 16, 9, 9);
+		}
+		for(int i = 0; i < 5; i++) {
+			font[i + 6] = new TextureRegion(tex, 32 + i * 9, 25, 9, 9);
+		}
 		
 		cam.setToOrtho(false, BouncingBilly.V_WIDTH, BouncingBilly.V_HEIGHT);
 		
@@ -99,9 +112,16 @@ public class Menu extends GameState {
 		// draw button
 		playButton.render(sb);
 		
-		// draw bunny
+		// draw billy
 		sb.begin();
 		sb.draw(animation.getFrame(), 146, 31);
+		
+		// draw all crystal
+		int xi = 115;
+		
+		sb.draw(crystal, xi, 129);
+		drawString(sb, 5 + " / " + 20, xi + 32, 131);
+		
 		sb.end();
 		
 		// debug draw box2d
@@ -116,6 +136,20 @@ public class Menu extends GameState {
 			blocks.get(i).render(sb);
 		}
 */		
+	}
+	
+	private void drawString(SpriteBatch sb, String s, float x, float y) {
+		for(int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			if(c == '/'){
+				c = 10;
+			}
+			else if(c >= '0' && c <= '9'){
+				c -= '0';
+			}
+			else continue;
+			sb.draw(font[c], x + i * 9, y);
+		}
 	}
 
 	@Override
