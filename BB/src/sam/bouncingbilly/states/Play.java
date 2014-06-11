@@ -62,6 +62,8 @@ public class Play extends GameState {
 	
 	private HUD hud;
 	
+	public static int level;
+	
 	public Play(GameStateManager gsm) {
 		
 		super(gsm);
@@ -262,7 +264,10 @@ public class Play extends GameState {
 	private void createTiles() {
 		
 		// load tile map
-		tileMap = new TmxMapLoader().load("res/maps/test.tmx");
+		tileMap = new TmxMapLoader().load("res/maps/level" + level + ".tmx");
+		
+//		tileMap = new TmxMapLoader().load("res/maps/test.tmx");
+		
 		tmr = new OrthogonalTiledMapRenderer(tileMap);
 		tileSize = (Integer) tileMap.getProperties().get("tilewidth");
 		

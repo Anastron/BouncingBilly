@@ -4,6 +4,7 @@ import java.util.Stack;
 
 import sam.softwaredeveloping.BouncingBilly;
 import sam.bouncingbilly.states.GameState;
+import sam.bouncingbilly.states.LevelSelect;
 import sam.bouncingbilly.states.Menu;
 import sam.bouncingbilly.states.Play;
 
@@ -15,6 +16,7 @@ public class GameStateManager {
 	
 	public static final int MENU = 83774392;
 	public static final int PLAY = 912837;
+	public static final int LEVEL = 91231231;
 	
 	public GameStateManager(BouncingBilly game) {
 		this.game = game;
@@ -35,6 +37,7 @@ public class GameStateManager {
 	private GameState getState(int state) {
 		if(state == MENU) return new Menu(this);
 		if(state == PLAY) return new Play(this);
+		if(state == LEVEL) return new LevelSelect(this);
 		return null;
 	}
 	
