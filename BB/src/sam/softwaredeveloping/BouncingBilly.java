@@ -12,8 +12,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class BouncingBilly implements ApplicationListener {
 	
-	public static final String TITLE = "Block Bunny";
-	public static final String VERSION = "0.0.0.0";
+	public static final String TITLE = "Bouncing Irgendwas";
+	public static final String VERSION = "0.1.2";
 	public static final int V_WIDTH = 320;
 	public static final int V_HEIGHT = 240;
 	public static final int SCALE = 2;
@@ -45,6 +45,7 @@ public class BouncingBilly implements ApplicationListener {
 		res.loadSound("res/sfx/hit.wav");
 		res.loadSound("res/sfx/jump.wav");
 		res.loadSound("res/sfx/changeblock.wav");
+		res.loadSound("res/sfx/schuss.wav");
 		
 		// can you here it?
 		// dont work sry...
@@ -65,7 +66,7 @@ public class BouncingBilly implements ApplicationListener {
 	
 	public void render() {
 		
-		Gdx.graphics.setTitle(TITLE + " -- FPS: " + Gdx.graphics.getFramesPerSecond());
+		Gdx.graphics.setTitle(TITLE + " v." + VERSION + " -- FPS: " + Gdx.graphics.getFramesPerSecond());
 		
 		gsm.update(Gdx.graphics.getDeltaTime());
 		gsm.render();
