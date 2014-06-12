@@ -1,17 +1,6 @@
 package sam.bouncingbilly.states;
 
 import static sam.bouncingbilly.handlers.B2DVars.PPM;
-import sam.bouncingbilly.entities.Crystal;
-import sam.bouncingbilly.entities.HUD;
-import sam.bouncingbilly.entities.Player;
-import sam.bouncingbilly.entities.Spike;
-import sam.bouncingbilly.handlers.B2DVars;
-import sam.bouncingbilly.handlers.Background;
-import sam.bouncingbilly.handlers.BoundedCamera;
-import sam.bouncingbilly.handlers.GameStateManager;
-import sam.bouncingbilly.handlers.MyContactListener;
-import sam.bouncingbilly.handlers.MyInput;
-import sam.softwaredeveloping.BouncingBilly;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -37,6 +26,18 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
+import sam.bouncingbilly.handlers.BoundedCamera;
+
+import sam.bouncingbilly.entities.Crystal;
+import sam.bouncingbilly.entities.HUD;
+import sam.bouncingbilly.entities.Player;
+import sam.bouncingbilly.handlers.B2DVars;
+import sam.bouncingbilly.handlers.GameStateManager;
+import sam.bouncingbilly.handlers.MyContactListener;
+import sam.bouncingbilly.handlers.MyInput;
+import sam.bouncingbilly.handlers.Background;
+import sam.softwaredeveloping.BouncingBilly;
+
 public class Play extends GameState {
 
 	private boolean debug = false;
@@ -54,9 +55,7 @@ public class Play extends GameState {
 	private OrthogonalTiledMapRenderer tmr;
 
 	private Player player;
-
 	private Array<Crystal> crystals;
-	private Array<Spike> spikes;
 
 	private Background[] backgrounds;
 
@@ -79,9 +78,6 @@ public class Play extends GameState {
 
 		// create tiles
 		createTiles();
-
-		// create spikes
-		createSpikes();
 
 		// create crystals
 		createCrystals();
@@ -195,18 +191,12 @@ public class Play extends GameState {
 		for (int i = 0; i < crystals.size; i++) {
 			crystals.get(i).update(dt);
 		}
-		
-		// update spikes
-		for(int i = 0; i < spikes.size; i++) {
-			spikes.get(i).update(dt);
-		}
 
 	}
 
 	private void checkPoints() {
 		int allPoints2 = 0;
-		int points = BouncingBilly.prefsPoints
-				.getInteger(level + "_lvl_Points");
+		int points = BouncingBilly.prefsPoints.getInteger(level + "_lvl_Points");
 
 		if (points < player.getNumCrystals()) {
 			BouncingBilly.prefsPoints.putInteger(level + "_lvl_Points",
@@ -214,10 +204,9 @@ public class Play extends GameState {
 			BouncingBilly.prefsPoints.flush();
 		}
 		for (int i = 1; i < 6; i++) {
-			allPoints2 += BouncingBilly.prefsPoints.getInteger(i
-					+ "_lvl_Points");
+			allPoints2 += BouncingBilly.prefsPoints.getInteger( i + "_lvl_Points");
 		}
-
+		
 		BouncingBilly.prefsPoints.putInteger("allPoints", allPoints2);
 		BouncingBilly.prefsPoints.flush();
 	}
@@ -250,11 +239,6 @@ public class Play extends GameState {
 		for (int i = 0; i < crystals.size; i++) {
 			crystals.get(i).render(sb);
 		}
-		
-		// draw spikes
-		for(int i = 0; i < spikes.size; i++) {
-			spikes.get(i).render(sb);
-		}
 
 		// draw hud
 		sb.setProjectionMatrix(hudCam.combined);
@@ -285,7 +269,7 @@ public class Play extends GameState {
 		shape.setAsBox(13 / PPM, 13 / PPM);
 		fdef.shape = shape;
 		fdef.filter.categoryBits = B2DVars.BIT_PLAYER;
-		fdef.filter.maskBits = B2DVars.BIT_RED | B2DVars.BIT_CRYSTAL | B2DVars.BIT_SPIKE;
+		fdef.filter.maskBits = B2DVars.BIT_RED | B2DVars.BIT_CRYSTAL;
 		body.createFixture(fdef).setUserData("player");
 
 		// create foot sensor
@@ -407,37 +391,6 @@ public class Play extends GameState {
 
 	}
 
-	private void createSpikes() {
-
-		spikes = new Array<Spike>();
-
-		MapLayer ml = tileMap.getLayers().get("spikes");
-		if (ml == null)
-			return;
-
-		for (MapObject mo : ml.getObjects()) {
-			BodyDef cdef = new BodyDef();
-			cdef.type = BodyType.StaticBody;
-			float x = (Float) mo.getProperties().get("x") / PPM;
-			float y = (Float) mo.getProperties().get("y") / PPM;
-			cdef.position.set(x, y);
-			Body body = world.createBody(cdef);
-			FixtureDef cfdef = new FixtureDef();
-			CircleShape cshape = new CircleShape();
-			cshape.setRadius(5 / PPM);
-			cfdef.shape = cshape;
-			cfdef.isSensor = true;
-			cfdef.filter.categoryBits = B2DVars.BIT_SPIKE;
-			cfdef.filter.maskBits = B2DVars.BIT_PLAYER;
-			body.createFixture(cfdef).setUserData("spike");
-			Spike s = new Spike(body);
-			body.setUserData(s);
-			spikes.add(s);
-			cshape.dispose();
-		}
-
-	}
-
 	private void switchBlock() {
 
 		Filter filter = player.getBody().getFixtureList().first()
@@ -463,7 +416,7 @@ public class Play extends GameState {
 
 		// set new mask bits for foot
 		filter = player.getBody().getFixtureList().get(1).getFilterData();
-		bits |= B2DVars.BIT_CRYSTAL | B2DVars.BIT_SPIKE;
+		bits &= ~B2DVars.BIT_CRYSTAL;
 		filter.maskBits = bits;
 		player.getBody().getFixtureList().get(1).setFilterData(filter);
 	}
