@@ -7,6 +7,7 @@ import sam.bouncingbilly.handlers.MyInputProcessor;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -24,11 +25,15 @@ public class BouncingBilly implements ApplicationListener {
 	private OrthographicCamera cam;
 	private OrthographicCamera hudCam;
 	
+	public static Preferences prefsPoints;
+	
 	private GameStateManager gsm;
 	
 	public static Content res;
 	
 	public void create() {
+		
+		prefsPoints = Gdx.app.getPreferences("points");
 		
 		
 		Gdx.input.setInputProcessor(new MyInputProcessor());
@@ -37,7 +42,7 @@ public class BouncingBilly implements ApplicationListener {
 		res.loadTexture("res/images/billy.png", "billy");
 		res.loadTexture("res/images/crystal.png", "crystal");
 		res.loadTexture("res/images/hud.png", "hud");
-		res.loadTexture("res/images/menu.png", "menu");
+		res.loadTexture("res/images/menu2.png", "menu");
 		res.loadTexture("res/images/bgs.png", "bgs");
 		
 		// Sounds

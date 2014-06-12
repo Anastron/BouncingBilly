@@ -31,27 +31,35 @@ public class Menu extends GameState {
 	private TextureRegion crystal;
 	private TextureRegion[] font;
 	
+	private int allpoints;
+	
 	
 	public Menu(GameStateManager gsm) {
 		
 		super(gsm);
 		
+/*		int allPoints2 = BouncingBilly.prefsPoints.getInteger("1_lvlPoints");
+		BouncingBilly.prefsPoints.putInteger("allPoints", allPoints2);
+		BouncingBilly.prefsPoints.flush();	
+*/		
+		allpoints = BouncingBilly.prefsPoints.getInteger("allPoints");
+		
 		Texture tex = BouncingBilly.res.getTexture("menu");
 		bg = new Background(new TextureRegion(tex), cam, 1f);
 		bg.setVector(-20, 0);
 		
-		tex = BouncingBilly.res.getTexture("billy");
+/*		tex = BouncingBilly.res.getTexture("billy");
 		TextureRegion[] reg = new TextureRegion[4];
 		for(int i = 0; i < reg.length; i++) {
 			reg[i] = new TextureRegion(tex, i * 32, 0, 32, 32);
 		}
 		
 		animation = new Animation(reg, 1 / 12f);
-		
+*/		
 		tex = BouncingBilly.res.getTexture("hud");
 		
-		// player from hud
-		playButton = new GameButton(new TextureRegion(tex, 0, 34, 58, 27), 160, 100, cam);
+		// playerbutton from hud
+		playButton = new GameButton(new TextureRegion(tex, 0, 34, 58, 27), 160, 145, cam);
 		
 		// crystal from hud
 		crystal = new TextureRegion(tex, 80, 0, 16, 16);
@@ -92,7 +100,7 @@ public class Menu extends GameState {
 		world.step(dt / 5, 8, 3);
 		
 		bg.update(dt);
-		animation.update(dt);
+//		animation.update(dt);
 		
 		playButton.update(dt);
 		
@@ -110,13 +118,13 @@ public class Menu extends GameState {
 		
 		// draw billy
 		sb.begin();
-		sb.draw(animation.getFrame(), 146, 31);
+//		sb.draw(animation.getFrame(), 146, 31);
 		
 		// draw all crystal
-		int xi = 115;
+		int xi = 132;
 		
-		sb.draw(crystal, xi, 129);
-		drawString(sb, 5 + " / " + 20, xi + 32, 131);
+		sb.draw(crystal, xi, 172);
+		drawString(sb, "" + allpoints, xi + 32, 175);
 		
 		sb.end();
 		
